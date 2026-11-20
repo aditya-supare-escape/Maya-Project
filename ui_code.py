@@ -1,51 +1,62 @@
-from PySide6.QtWidgets import (QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QMessageBox, QScrollArea, QHBoxLayout, QTabWidget)        
+from PySide6.QtWidgets import (QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QMessageBox, QScrollArea, QHBoxLayout, QTabWidget, QGroupBox, QCheckBox, QLineEdit, QTextEdit, QFrame)        
         
 from PySide6.QtCore import Qt
-
+import sys
 
 
 class NewWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         
-        self.tab_group = QTabWidget()
-        self.tab_group.TabPosition(QTabWidget)
-        btn1 = QPushButton('clickme')
+        self.setWindowTitle("Smart Retopology")
+        self.setMinimumSize(400, 550)
         
-        #main layout 
-        self.main_layout = QVBoxLayout()
+        self.init_ui()
+        
+        
+       
+        
+    def init_ui(self):
+        
         self.main_widget = QWidget()
-        self.main_widget.setLayout(self.main_layout)
-        self.init_scroll_area()
+        self.main_layout = QVBoxLayout(self.main_widget)
+       
+        #create tab widget 
+        self.tab_group = QTabWidget()
+        self.tab_group.setTabPosition(QTabWidget.TabPosition.North)
         
-        #add widget
-        self.main_layout.addWidget(btn1)
-        self.main_layout.addWidget(self.scroll_area)
+        #Create Pages 
+        self.analyzer_page = QWidget()
+        self.retopology_page = QWidget()
+        self.optimizer_page = QWidget()
+
+        #add tabs 
+        self.tab_group.addTab(self.analyzer_page, 'Analyzer')
+        self.tab_group.addTab(self.retopology_page, 'Retopology')
+        self.tab_group.addTab(self.optimizer_page, 'Optimizer')
+        
+        self.main_layout.addWidget(self.tab_group)
         
         self.setCentralWidget(self.main_widget)
-        
-        #signals
-        btn1.clicked.connect(self.print_func)
+            
     
-    def print_func(self):
-        print('hey')
+    def analyzer_page():
+        pass 
+    
+    def retopology_page():
+        pass
+    
+    def optimizer_page():
+        pass
+    
         
-    def init_scroll_area(self):
-        self.scroll_area = QScrollArea()
-        self.scroll_layout = QVBoxLayout()
-        self.scroll_widget = QWidget()
-        self.scroll_widget.setLayout(self.scroll_layout)
+    def get_selected_issues(self):
+        issues = {
+            # 'ngons': self.ui.check_ngons.isChecked()
+        }
+    
         
-        
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area.setWidget(self.scroll_widget)
-        
-        
-
-
-        
-        
-        
+    
 app = QApplication([])
 window = NewWindow()
 
